@@ -18,6 +18,10 @@ from app.services.bot_service import setup_bot_commands
 
 logging.basicConfig(level=logging.INFO,format="%(levelname)s - %(message)s",)
 
+# 2. Silence the HTTP libraries to prevent token leaks
+logging.getLogger("httpx").setLevel(logging.WARNING)
+logging.getLogger("httpcore").setLevel(logging.WARNING)
+
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     
